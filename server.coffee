@@ -4,8 +4,8 @@
 	Module dependencies.
 ###
 http = require 'http'
-app = require './app'
 debug = require('debug')('local-express-app')
+app = require './coffee/app'
 
 ###
 	Normalize a port into a number, string, or false.
@@ -34,6 +34,7 @@ server = http.createServer app
 	Listen on provided port, on all network interfaces.
 ###
 server.listen port
+
 ###
 	Event listener for HTTP server "error" event.
 ###
