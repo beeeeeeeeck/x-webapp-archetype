@@ -1,9 +1,3 @@
-###
-
-    nodemon tasks
-
-###
-
 # startup server by nodemon
 startup = ->
 	{exec, spawn} = require 'child_process'
