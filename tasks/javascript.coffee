@@ -1,16 +1,17 @@
 SingleTaskQueue = require './queue'
 
+fs = require 'fs'
 path = require 'path'
 async = require 'async'
 uglify = require 'uglify-js'
-fs = require 'fs'
+require 'colors'
 
 task_compile_js = (cb) ->
-	console.log 'Compile/Browserfying JS...'
+	console.log 'Compile/Browserfying JS...'.rainbow
 	{exec, spawn} = require 'child_process'
 	compile = (root,name) ->
 		return (next) ->
-			console.log "Compiling #{root}.coffee."
+			console.log "Compiling #{root}.coffee.".cyan
 			async.series [
 				(cb) ->
 					exec "node_modules/.bin/browserify --transform coffeeify --debug --extension='.coffee' coffee/#{root}/#{name}.coffee -o public/js/#{root}-coffee.js", (err, stdout, stderr) ->
@@ -25,7 +26,7 @@ task_compile_js = (cb) ->
 						console.error err if err?
 						cb()
 			], (err, results) ->
-				console.log "File - #{root}.js is done compiling."
+				console.log "File - #{root}.js is done compiling.".cyan
 				next err if next?
 
 	async.parallel [
@@ -40,13 +41,13 @@ task_watch_js = (cb) ->
 		ignoreInitial: true
 
 	watcher.on 'add', (path) ->
-		console.log "File #{path} has been added"
+		console.log "File #{path} has been added".yellow
 		jsQueue.push()
 	watcher.on 'change', (path) ->
-		console.log "File #{path} has been changed"
+		console.log "File #{path} has been changed".green
 		jsQueue.push()
 	watcher.on 'unlink', (path) ->
-		console.log "File #{path} has been removed"
+		console.log "File #{path} has been removed".red
 		jsQueue.push()
 	cb() if cb?
 
