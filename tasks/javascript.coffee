@@ -6,11 +6,11 @@ uglify = require 'uglify-js'
 fs = require 'fs'
 
 task_compile_js = (cb) ->
+	console.log 'Compile/Browserfying JS...'
 	{exec, spawn} = require 'child_process'
-	console.log 'browserfying JS'
 	compile = (root,name) ->
 		return (next) ->
-			console.log "compiling #{root}.coffee"
+			console.log "Compiling #{root}.coffee."
 			async.series [
 				(cb) ->
 					exec "node_modules/.bin/browserify --transform coffeeify --debug --extension='.coffee' coffee/#{root}/#{name}.coffee -o public/js/#{root}-coffee.js", (err, stdout, stderr) ->
@@ -25,11 +25,11 @@ task_compile_js = (cb) ->
 						console.error err if err?
 						cb()
 			], (err, results) ->
-				console.log "#{root}.js is compiled"
+				console.log "File - #{root}.js is done compiling."
 				next err if next?
 
 	async.parallel [
-		compile 'client','main'
+		compile 'client', 'main'
 	], (err, results) ->
 		cb err if cb?
 
@@ -37,6 +37,7 @@ task_watch_js = (cb) ->
 	jsQueue = new SingleTaskQueue task_compile_js
 	watcher = require('chokidar').watch ['coffee/client'],
 		persistent: true
+		ignoreInitial: true
 
 	watcher.on 'add', (path) ->
 		console.log "File #{path} has been added"

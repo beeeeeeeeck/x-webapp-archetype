@@ -7,6 +7,6 @@ class AppView extends Backbone.View
 	initialize: (options) ->
 		@render()
 	render: ->
-		@$el.html 'Hello world, LOL'
+		@$el.html 'Hello world...'
 
 module.exports = AppView
