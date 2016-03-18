@@ -1,0 +1,8 @@
+node_modules
+.idea
+.sass-cache
+*.orig
+.project
+.DS_Store
+
+public/js/*.js
