@@ -11,5 +11,4 @@ Technology
 4. Coffee Script
 5. Mocha
 
-*Note that the packages for both Nodemon and Coffee Script are installed globally.
-This can be switched to use the local packages.
+*Note that the package - Coffee Script are installed globally as convenience.
