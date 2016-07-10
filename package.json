@@ -30,6 +30,7 @@
     "browserify": "^13.0.0",
     "chokidar": "^1.4.3",
     "coffeeify": "^2.0.1",
+    "node-inspector": "^0.12.8",
     "uglify-js": "^2.6.2"
   }
 }

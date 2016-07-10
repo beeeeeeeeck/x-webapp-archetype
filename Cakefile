@@ -11,11 +11,20 @@ unittest = require('./tasks/unittest')
 task 'compile:js', "Compiles all client coffee files into js files...", ->
 	javascript.compile()
 
-task 'nodemon', "Run and watch the server...after test and compile", ->
+startupAndWatchApp = (opt) ->
 	unittest.test {}, ->
 		javascript.compile ->
 			watch_files ->
-				nodemon.startup()
+				nodemon.startup(opt)
+
+task 'nodemon', "Run and watch the server...after test and compile", ->
+	startupAndWatchApp()
+
+task 'nodemon:debug', "Run and watch the server...after test and compile, with DEBUG mode", ->
+	startupAndWatchApp({debug:true})
+
+task 'nodemon:debug:brk', "Run and watch the server...after test and compile, with advanced DEBUG mode", ->
+	startupAndWatchApp({debugBRK:true})
 
 option '-t','--test [testName]', 'Test a specific unit test'
 task 'test', "Run Mocha unit tests...", (opt) ->
